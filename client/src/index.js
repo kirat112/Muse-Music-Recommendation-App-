@@ -16,5 +16,6 @@ import Singer from "./Components/Card/CardContents/Singer";
 import Playlist from "./Components/Card/CardContents/Playlist";
 import MoodPage from "./Components/Mood/MoodPage";
 import GenrePage from "./Components/Genre/GenrePage";
+import SingerPage from "./Components/Singer/SingerPage";
 
-export { Button, Navbar, Discover, CardContainer, Dashboard, Footer, Logo, Search, Home, Facebook, Insta, Twitter, Mood, Genre, Singer, Playlist, MoodPage, GenrePage };
+export { Button, Navbar, Discover, CardContainer, Dashboard, Footer, Logo, Search, Home, Facebook, Insta, Twitter, Mood, Genre, Singer, Playlist, MoodPage, GenrePage, SingerPage };
