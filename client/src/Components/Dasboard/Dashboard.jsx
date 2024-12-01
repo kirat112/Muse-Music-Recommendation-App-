@@ -1,13 +1,16 @@
-import {Discover, CardContainer, Footer} from "../../index.js";
+// import { Router } from "react-router-dom";
+import { Discover, CardContainer, Footer } from "../../index.js";
 
 const Dashboard = () => {
   return (
-    <div className="px-40 py-5">
+    // <Router>
+      <div className="px-40 py-5">
         <Discover />
         <CardContainer />
         <Footer />
       </div>
-  )
-}
+    // {/* </Router> */}
+  );
+};
 
-export default Dashboard
+export default Dashboard;

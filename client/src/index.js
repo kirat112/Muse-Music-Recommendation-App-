@@ -14,5 +14,7 @@ import Mood from "./Components/Card/CardContents/Mood";
 import Genre from "./Components/Card/CardContents/Genre";
 import Singer from "./Components/Card/CardContents/Singer";
 import Playlist from "./Components/Card/CardContents/Playlist";
+import MoodPage from "./Components/Mood/MoodPage";
+import GenrePage from "./Components/Genre/GenrePage";
 
-export { Button, Navbar, Discover, CardContainer, Dashboard, Footer, Logo, Search, Home, Facebook, Insta, Twitter, Mood, Genre, Singer, Playlist };
+export { Button, Navbar, Discover, CardContainer, Dashboard, Footer, Logo, Search, Home, Facebook, Insta, Twitter, Mood, Genre, Singer, Playlist, MoodPage, GenrePage };
