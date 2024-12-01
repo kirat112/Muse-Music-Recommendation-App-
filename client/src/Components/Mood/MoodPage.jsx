@@ -1,5 +1,3 @@
-import { Navbar, Footer } from "../../index.js";
-
 const MoodPage = () => {
   const options = [
     {
@@ -134,40 +132,37 @@ const MoodPage = () => {
     },
   ];
   return (
-    <div>
-      <Navbar />
-      <div className="px-40 py-5 flex flex-col">
-        <div className="flex-grow">
-          {/* Heading */}
-          <h1 className="p-4 font-bold text-4xl">How are you feeling today?</h1>
-          {/* Options */}
-          <ul className="p-4 flex justify-between ">
-            {options.map((option, index) => (
-              <li
-                className="rounded-lg border border-[#DBE5E0] py-4 px-8 flex gap-3 items-center"
-                key={index}
-              >
-                <span>{option.img}</span>
-                <input type="button" value={option.value} />
-              </li>
-            ))}
-          </ul>
-          {/* Description */}
-          <div className="p-4">
-            <input
-              className="bg-[#F0F5F2] text-[#638778] p-4 font-normal text-base rounded-lg"
-              type="text"
-              placeholder="Describe your mood"
-            />
-          </div>
-          {/* Button */}
-          <div className="p-3 w-full flex justify-end">
-            <button className="px-5 py-2.5 rounded-2xl bg-buttonBgGreen text-buttonTextColor ">Next</button>
-          </div>
+    <div className="px-40 py-5 flex flex-col">
+      <div className="flex-grow">
+        {/* Heading */}
+        <h1 className="p-4 font-bold text-4xl">How are you feeling today?</h1>
+        {/* Options */}
+        <ul className="p-4 flex justify-between ">
+          {options.map((option, index) => (
+            <li
+              className="rounded-lg border border-[#DBE5E0] py-4 px-8 flex gap-3 items-center"
+              key={index}
+            >
+              <span>{option.img}</span>
+              <input type="button" value={option.value} />
+            </li>
+          ))}
+        </ul>
+        {/* Description */}
+        <div className="p-4">
+          <input
+            className="bg-[#F0F5F2] text-[#638778] p-4 font-normal text-base rounded-lg"
+            type="text"
+            placeholder="Describe your mood"
+          />
+        </div>
+        {/* Button */}
+        <div className="p-3 w-full flex justify-end">
+          <button className="px-5 py-2.5 rounded-2xl bg-buttonBgGreen text-buttonTextColor ">
+            Next
+          </button>
         </div>
       </div>
-      <Footer />
-
     </div>
   );
 };
