@@ -2,9 +2,10 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
-const cookieParser = require("cookie-parser");
 const authRoute = require("./Routes/AuthRoute.js");
 const PORT = process.env.PORT || 3001;
+
+const { AuthMiddleware } = require("./Middlewares/AuthMiddleware.js");
 
 mongoose
   .connect(process.env.MONGODBURI)
@@ -22,10 +23,19 @@ app.listen(PORT, () => {
 });
 app.use(
   cors({
-    origin: "http://localhost:5173/",
+    origin: "*",
     credentials: true,
   })
 );
-app.use(cookieParser());
 app.use(express.json());
-app.use("/", authRoute);
+
+app.get("/", (req, res) => {
+  res.send("Hello World");
+});
+
+app.use("/auth", authRoute);
+
+app.post("/songs", AuthMiddleware, (req, res) => {
+  console.log("songs route",req.user);
+  res.send("This is the Auth Route");
+});
