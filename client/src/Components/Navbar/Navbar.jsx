@@ -1,4 +1,4 @@
-import {Button, Home, Logo, Search} from "../../index.js";
+import { Button, HomeIcon, Logo, Search } from "../../index.js";
 
 const Navbar = () => {
   const links = [
@@ -13,31 +13,36 @@ const Navbar = () => {
     <div className="flex justify-between items-center w-full px-10 py-3">
       {/* left side */}
       <div>
-        <a href="#"><Logo/></a>
+        <a href="#">
+          <Logo />
+        </a>
       </div>
 
       {/* right side */}
-      <div className="flex gap-8 items-center">
-        {/* links */}
-        <div>
-          <ul className="flex gap-9">
-            {links.map((link, index) => (
-              <li key={index}>
-                <a href={link.path}>{link.name}</a>
-              </li>
-            ))}
-          </ul>
-        </div>
-        {/* buttons */}
-        <div className="flex gap-2">
-            <Button Children={<Search/>}/>
-            <Button Children={<Home/>}/>
-        </div>
-        {/* profile */}
-        <div>
+
+      {localStorage.getItem("token") && (
+        <div className="flex gap-8 items-center">
+          {/* links */}
+          <div>
+            <ul className="flex gap-9">
+              {links.map((link, index) => (
+                <li key={index}>
+                  <a href={link.path}>{link.name}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+          {/* buttons */}
+          <div className="flex gap-2">
+            <Button Children={<Search />} />
+            <Button Children={<HomeIcon />} />
+          </div>
+          {/* profile */}
+          <div>
             <a href="#">Profile</a>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
