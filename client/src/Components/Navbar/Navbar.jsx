@@ -1,6 +1,8 @@
+import { useNavigate } from "react-router-dom";
 import { Button, HomeIcon, Logo, Search } from "../../index.js";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const links = [
     { name: "For You", path: "/" },
     { name: "Playlists", path: "/playlists" },
@@ -12,14 +14,11 @@ const Navbar = () => {
   return (
     <div className="flex justify-between items-center w-full px-10 py-3">
       {/* left side */}
-      <div>
-        <a href="#">
-          <Logo />
-        </a>
+      <div className="cursor-pointer" onClick={() => navigate("/")}>
+        <Logo />
       </div>
 
       {/* right side */}
-
       {localStorage.getItem("token") && (
         <div className="flex gap-8 items-center">
           {/* links */}
@@ -35,7 +34,9 @@ const Navbar = () => {
           {/* buttons */}
           <div className="flex gap-2">
             <Button Children={<Search />} />
-            <Button Children={<HomeIcon />} />
+            <div className="cursor-pointer" onClick={() => navigate("/")}>
+              <Button Children={<HomeIcon />} />
+            </div>
           </div>
           {/* profile */}
           <div>

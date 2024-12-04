@@ -7,31 +7,32 @@ import {
   MoodPage,
   Login,
   ProtectedRoute,
+  PlaylistPage,
 } from "./index.js";
 import { Routes, Route } from "react-router";
 import "./App.css";
-import { useEffect } from "react";
+// import { useEffect } from "react";
+import { LOCALURI, DEPLOYEDURI } from "./Constants.js";
 
 function App() {
-  useEffect(() => {
-    fetch("https://l3ncll7v-5000.inc1.devtunnels.ms/songs", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: localStorage.getItem("token"),
-      },
-      body: JSON.stringify({
-        Singer: "Arijit Singh",
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => console.log(data));
-  }, []);
+  // useEffect(() => {
+  //   fetch(`${LOCALURI}/songs`, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: localStorage.getItem("token"),
+  //     },
+  //     body: JSON.stringify({
+  //       Singer: "Arijit Singh",
+  //     }),
+  //   })
+  //     .then((res) => res.json())
+  // }, []);
 
   return (
-    <div className="font-sans bg-white">
+    <div className="font-sans bg-white flex flex-col min-h-screen">
       <Navbar />
-      <div className="min-h-[calc(100dvh_-_277px)]">
+      <div className="flex-1 items-center justify-self-center">
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route
@@ -65,6 +66,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <GenrePage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="playlist"
+            element={
+              <ProtectedRoute>
+                <PlaylistPage />
               </ProtectedRoute>
             }
           />

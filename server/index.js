@@ -36,6 +36,5 @@ app.get("/", (req, res) => {
 app.use("/auth", authRoute);
 
 app.post("/songs", AuthMiddleware, (req, res) => {
-  console.log("songs route",req.user);
   res.send("This is the Auth Route");
 });

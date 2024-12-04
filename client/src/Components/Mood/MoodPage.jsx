@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const MoodPage = () => {
   const options = [
     {
@@ -131,6 +133,25 @@ const MoodPage = () => {
       ),
     },
   ];
+
+  const [selectedMood, setSelectedMood] = useState("");
+  const [description, setDescription] = useState("");
+  const [suggestedSongs, setSuggestedSongs] = useState([]);
+
+  const spotifyAccessToken = import.meta.env.VITE_SPOTIFY_ACCESS_TOKEN;
+
+  const fetchSongs = async () => {
+    const response = await fetch(
+      `https://api.spotify.com/v1/recommendations?seed_genres=${selectedMood}`,
+      {
+        headers: {
+          Authorization: `Bearer ${spotifyAccessToken}`,
+        },
+      }
+    );
+    const data = await response.json();
+    setSuggestedSongs(data.tracks);
+  };
   return (
     <div className="px-40 py-5 flex flex-col">
       <div className="flex-grow">
@@ -140,11 +161,21 @@ const MoodPage = () => {
         <ul className="p-4 flex justify-between ">
           {options.map((option, index) => (
             <li
-              className="rounded-lg border border-[#DBE5E0] py-4 px-8 flex gap-3 items-center"
+              className={`rounded-lg border border-[#DBE5E0] py-4 px-8 flex gap-3 items-center cursor-pointer ${
+                selectedMood === option.value ? "bg-[#F0F5F2]" : ""
+              }`}
               key={index}
+              onClick={() => {
+                setSelectedMood(option.value);
+                console.log(selectedMood);
+              }}
             >
               <span>{option.img}</span>
-              <input type="button" value={option.value} />
+              <input
+                className="cursor-pointer"
+                type="button"
+                value={option.value}
+              />
             </li>
           ))}
         </ul>
@@ -154,13 +185,31 @@ const MoodPage = () => {
             className="bg-[#F0F5F2] text-[#638778] p-4 font-normal text-base rounded-lg"
             type="text"
             placeholder="Describe your mood"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
           />
         </div>
         {/* Button */}
         <div className="p-3 w-full flex justify-end">
-          <button className="px-5 py-2.5 rounded-2xl bg-buttonBgGreen text-buttonTextColor ">
+          <button
+            onClick={fetchSongs}
+            className="px-5 py-2.5 rounded-2xl bg-buttonBgGreen text-buttonTextColor "
+          >
             Next
           </button>
+        </div>
+        {/* suggested songs */}
+        <div>
+          <h1 className="p-4 font-bold text-4xl">Suggested Songs</h1>
+          <ul>
+            {suggestedSongs.map((song, index) => (
+              <li key={index}>
+                <h1>
+                  {song.name} by {song.artists[0].name}
+                </h1>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </div>

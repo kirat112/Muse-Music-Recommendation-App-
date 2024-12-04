@@ -15,7 +15,6 @@ const AuthProvider = ({ children }) => {
     const token = localStorage.getItem("token");
     if (token) {
       const decodedToken = jwtDecode(token);
-      console.log(decodedToken);
       setUser(decodedToken);
       setIsAuthenticated(true);
     }

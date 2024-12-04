@@ -17,6 +17,7 @@ import Playlist from "./Components/Card/CardContents/Playlist";
 import MoodPage from "./Components/Mood/MoodPage";
 import GenrePage from "./Components/Genre/GenrePage";
 import SingerPage from "./Components/Singer/SingerPage";
+import PlaylistPage from "./Components/Playlist/PlaylistPage";
 import Login from "./Pages/Login";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
 
@@ -40,6 +41,7 @@ export {
   MoodPage,
   GenrePage,
   SingerPage,
+  PlaylistPage,
   Login,
   ProtectedRoute,
 };

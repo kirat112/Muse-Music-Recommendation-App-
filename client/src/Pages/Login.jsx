@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import {LOCALURI, DEPLOYEDURI} from "../Constants";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -26,21 +27,19 @@ const Login = () => {
     toast.success(message);
     localStorage.setItem("token", token);
     navigate("/");
-    // todo
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const url = isSignup
-        ? "https://l3ncll7v-5000.inc1.devtunnels.ms/auth/signup"
-        : "https://l3ncll7v-5000.inc1.devtunnels.ms/auth/login";
+        ? `${LOCALURI}/auth/signup` 
+        : `${LOCALURI}/auth/login`;
 
       const res = await axios.post(
         url,
         isSignup ? { email, password, username } : { email, password }
       );
-      console.log(res);
       if (res.data.success) {
         handleSuccess(res.data);
       } else {
@@ -58,8 +57,8 @@ const Login = () => {
   }, [navigate]);
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded shadow-md w-96">
+    <div className="flex items-center justify-center bg-white min-h-min">
+      <div className="bg-[#F0F5F2] text-[#638778] p-8 rounded shadow-md w-96">
         <h2 className="text-2xl font-bold mb-6 text-center">
           {isSignup ? "Sign Up" : "Login"}
         </h2>
@@ -72,7 +71,7 @@ const Login = () => {
               onChange={handleOnChange}
               placeholder="Username"
               required
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-buttonTextColor"
             />
           )}
           <input
@@ -82,7 +81,7 @@ const Login = () => {
             onChange={handleOnChange}
             placeholder="Email"
             required
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-buttonTextColor"
           />
           <input
             type="password"
@@ -91,18 +90,18 @@ const Login = () => {
             onChange={handleOnChange}
             placeholder="Password"
             required
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-buttonTextColor"
           />
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600"
+            className="w-full bg-buttonBgGreen text-buttonTextColor py-2 rounded-md hover:bg-opacity-90"
           >
             {isSignup ? "Sign Up" : "Login"}
           </button>
         </form>
         <button
           onClick={() => setIsSignup(!isSignup)}
-          className="w-full mt-4 text-blue-500 hover:underline"
+          className="w-full mt-4 text-buttonTextColor hover:underline"
         >
           {isSignup ? "Switch to Login" : "Switch to Sign Up"}
         </button>
