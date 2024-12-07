@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const PlaylistPage = () => {
   const [playlistName, setPlaylistName] = useState("");
@@ -35,6 +35,10 @@ const PlaylistPage = () => {
         : [...prevGenres, selectedGenre]
     );
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="px-40 py-5 flex flex-col">
