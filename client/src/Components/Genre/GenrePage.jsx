@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 const options = [
   "Pop",
@@ -48,6 +49,38 @@ const options = [
 ];
 
 const GenrePage = () => {
+  const [genre, setGenre] = useState("");
+  const [recommendations, setRecommendations] = useState([]);
+
+  const handleSelectedGenre = (event) => {
+    setGenre(event.target.value);
+    if (recommendations.length > 0) {
+      setRecommendations([]);
+    }
+  };
+
+  const handleRecommendations = async () => {
+    const token = localStorage.getItem("spotify_access_token");
+    try {
+      const response = await axios.get("https://api.spotify.com/v1/search", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          q: `genre:${genre}`,
+          type: "track",
+          limit: 20,
+          market: "IN",
+        },
+      });
+      setRecommendations((prev) => [...prev, ...response.data.tracks.items]);
+      console.log("Tracks:", response.data.tracks.items);
+    } catch (error) {
+      console.error("Error fetching tracks:", error);
+    }
+    setGenre("");
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -63,7 +96,7 @@ const GenrePage = () => {
       </div>
 
       {/* Options */}
-      <ul className="p-4 flex flex-col gap-3">
+      <ul onClick={handleSelectedGenre} className="p-4 flex flex-col gap-3">
         {options.map((option, index) => (
           <div
             key={index}
@@ -75,6 +108,7 @@ const GenrePage = () => {
               name={option}
               id={option}
               value={option}
+              checked={genre === option}
             />
             <label className="cursor-pointer" htmlFor={option}>
               {option}
@@ -85,9 +119,33 @@ const GenrePage = () => {
 
       {/* button */}
       <div className="p-3 w-full flex justify-end">
-        <button className="px-5 py-2.5 rounded-2xl bg-buttonBgGreen text-buttonTextColor ">
+        <button
+          onClick={handleRecommendations}
+          className="px-5 py-2.5 rounded-2xl bg-buttonBgGreen text-buttonTextColor "
+        >
           Next
         </button>
+      </div>
+      {/* Recommendations */}
+      <div>
+        {recommendations.length > 0 && (
+          <div className="p-4">
+            <h1 className="font-bold text-4xl mb-6">Recommendations</h1>
+            <div className="grid grid-cols-5 gap-5">
+              {recommendations.map((track, index) => (
+                <div key={index} className="flex flex-col gap-2">
+                  <img
+                    src={track.album.images[0].url}
+                    alt={track.album.name}
+                    className="w-40 h-40 rounded-lg"
+                  />
+                  <p className="font-bold text-lg">{track.name}</p>
+                  <p className="font-normal text-sm">{track.artists[0].name}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
