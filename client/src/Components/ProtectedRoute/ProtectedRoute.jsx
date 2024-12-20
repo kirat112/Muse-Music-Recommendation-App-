@@ -4,7 +4,7 @@ import { useEffect } from "react";
 const ProtectedRoute = ({ children }) => {
   const navigate = useNavigate();
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("spotify_access_token");
     if (!token) {
       navigate("/login");
     }

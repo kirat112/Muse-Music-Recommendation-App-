@@ -8,11 +8,12 @@ import {
   Login,
   ProtectedRoute,
   PlaylistPage,
+  PlaylistNavbar,
 } from "./index.js";
 import { Routes, Route } from "react-router";
 import "./App.css";
 // import { useEffect } from "react";
-import { LOCALURI, DEPLOYEDURI } from "./Constants.js";
+// import { LOCALURI, DEPLOYEDURI } from "./Constants.js";
 
 function App() {
   // useEffect(() => {
@@ -74,6 +75,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <PlaylistPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="playlistNavbar"
+            element={
+              <ProtectedRoute>
+                <PlaylistNavbar />
               </ProtectedRoute>
             }
           />

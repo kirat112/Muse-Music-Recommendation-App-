@@ -5,7 +5,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const links = [
     { name: "For You", path: "/" },
-    { name: "Playlists", path: "/playlists" },
+    { name: "Playlists", path: "/playlistNavbar" },
     { name: "Artists", path: "/artists" },
     { name: "Albums", path: "/albums" },
     { name: "Podcasts", path: "/podcasts" },
@@ -19,7 +19,7 @@ const Navbar = () => {
       </div>
 
       {/* right side */}
-      {localStorage.getItem("token") && (
+      {localStorage.getItem("spotify_access_token") && (
         <div className="flex gap-8 items-center">
           {/* links */}
           <div>
