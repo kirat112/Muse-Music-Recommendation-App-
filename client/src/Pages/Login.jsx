@@ -34,7 +34,7 @@ const Login = () => {
     }
   }, [navigate]);
   return (
-    <div className="flex items-center justify-center bg-white min-h-min">
+    <div className="flex items-center justify-center bg-white min-h-min mt-52">
       <a
         href={authURL}
         className="flex justify-center items-center px-8 py-4 w-fit bg-buttonBgGreen text-buttonTextColor rounded-md hover:bg-opacity-90"
