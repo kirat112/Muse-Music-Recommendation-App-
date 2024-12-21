@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState } from "react";
 
 const MoodPage = () => {
@@ -55,7 +56,7 @@ const MoodPage = () => {
       ),
     },
     {
-      value: "In Love",
+      value: "Love",
       img: (
         <svg
           width="24"
@@ -135,22 +136,46 @@ const MoodPage = () => {
   ];
 
   const [selectedMood, setSelectedMood] = useState("");
-  const [description, setDescription] = useState("");
+  // const [description, setDescription] = useState("");
   const [suggestedSongs, setSuggestedSongs] = useState([]);
 
-  const spotifyAccessToken = import.meta.env.VITE_SPOTIFY_ACCESS_TOKEN;
+  const moodGenreMap = {
+    Happy: "pop,dance,funk",
+    Sad: "acoustic",
+    Love: "romantic",
+    Angry: "metal,punk,rock",
+    Thoughtful: "ambient",
+  };
+
+  const genre = moodGenreMap[selectedMood];
+
+  const handleSelectedMood = (event) => {
+    setSelectedMood(event.target.value);
+    if (suggestedSongs.length > 0) {
+      setSuggestedSongs([]);
+    }
+  };
 
   const fetchSongs = async () => {
-    const response = await fetch(
-      `https://api.spotify.com/v1/recommendations?seed_genres=${selectedMood}`,
-      {
+    const token = localStorage.getItem("spotify_access_token");
+    try {
+      const response = await axios.get("https://api.spotify.com/v1/search", {
         headers: {
-          Authorization: `Bearer ${spotifyAccessToken}`,
+          Authorization: `Bearer ${token}`,
         },
-      }
-    );
-    const data = await response.json();
-    setSuggestedSongs(data.tracks);
+        params: {
+          q: `genre:${genre}`,
+          type: "track",
+          limit: 20,
+          market: "IN",
+        },
+      });
+      setSuggestedSongs((prev) => [...prev, ...response.data.tracks.items]);
+      console.log("response:", response.data.tracks.items);
+    } catch (error) {
+      console.error("Error fetching songs:", error);
+    }
+    setSelectedMood("");
   };
   return (
     <div className="px-40 py-5 flex flex-col">
@@ -165,10 +190,7 @@ const MoodPage = () => {
                 selectedMood === option.value ? "bg-[#F0F5F2]" : ""
               }`}
               key={index}
-              onClick={() => {
-                setSelectedMood(option.value);
-                console.log(selectedMood);
-              }}
+              onClick={handleSelectedMood}
             >
               <span>{option.img}</span>
               <input
@@ -180,7 +202,7 @@ const MoodPage = () => {
           ))}
         </ul>
         {/* Description */}
-        <div className="p-4">
+        {/* <div className="p-4">
           <input
             className="bg-[#F0F5F2] text-[#638778] p-4 font-normal text-base rounded-lg"
             type="text"
@@ -188,7 +210,7 @@ const MoodPage = () => {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
-        </div>
+        </div> */}
         {/* Button */}
         <div className="p-3 w-full flex justify-end">
           <button
@@ -200,16 +222,26 @@ const MoodPage = () => {
         </div>
         {/* suggested songs */}
         <div>
-          <h1 className="p-4 font-bold text-4xl">Suggested Songs</h1>
-          <ul>
-            {suggestedSongs.map((song, index) => (
-              <li key={index}>
-                <h1>
-                  {song.name} by {song.artists[0].name}
-                </h1>
-              </li>
-            ))}
-          </ul>
+          {suggestedSongs.length > 0 && (
+            <div className="p-4">
+              <h1 className="font-bold text-4xl mb-6">Recommendations</h1>
+              <div className="grid grid-cols-5 gap-5">
+                {suggestedSongs.map((track, index) => (
+                  <div key={index} className="flex flex-col gap-2">
+                    <img
+                      src={track.album.images[0].url}
+                      alt={track.album.name}
+                      className="w-40 h-40 rounded-lg"
+                    />
+                    <p className="font-bold text-lg">{track.name}</p>
+                    <p className="font-normal text-sm">
+                      {track.artists[0].name}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
