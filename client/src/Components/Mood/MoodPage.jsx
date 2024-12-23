@@ -136,7 +136,6 @@ const MoodPage = () => {
   ];
 
   const [selectedMood, setSelectedMood] = useState("");
-  // const [description, setDescription] = useState("");
   const [suggestedSongs, setSuggestedSongs] = useState([]);
 
   const moodGenreMap = {
@@ -182,6 +181,7 @@ const MoodPage = () => {
       <div className="flex-grow">
         {/* Heading */}
         <h1 className="p-4 font-bold text-4xl">How are you feeling today?</h1>
+        
         {/* Options */}
         <ul className="p-4 flex justify-between ">
           {options.map((option, index) => (
@@ -201,16 +201,7 @@ const MoodPage = () => {
             </li>
           ))}
         </ul>
-        {/* Description */}
-        {/* <div className="p-4">
-          <input
-            className="bg-[#F0F5F2] text-[#638778] p-4 font-normal text-base rounded-lg"
-            type="text"
-            placeholder="Describe your mood"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-        </div> */}
+
         {/* Button */}
         <div className="p-3 w-full flex justify-end">
           <button
@@ -220,6 +211,7 @@ const MoodPage = () => {
             Next
           </button>
         </div>
+
         {/* suggested songs */}
         <div>
           {suggestedSongs.length > 0 && (

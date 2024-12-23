@@ -8,6 +8,7 @@ const SingerPage = () => {
   // const [loading, setLoading] = useState(false);
   const [showArtists, setShowArtists] = useState(false);
   const [selectedArtist, setSelectedArtist] = useState("");
+  const [suggestedSongs, setSuggestedSongs] = useState([]);
   const dropdownRef = useRef(null);
   const inputRef = useRef(null);
 
@@ -57,14 +58,44 @@ const SingerPage = () => {
     }
   }, [query]);
 
+  // fetch suggested songs
+  const fetchSongs = async () => {
+    const token = localStorage.getItem("spotify_access_token");
+    if (!selectedArtist) {
+      console.error("No artist ID selected");
+      return;
+    }
+
+    try {
+      const response = await axios.get(
+        `https://api.spotify.com/v1/artists/${selectedArtist}/top-tracks`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          params: {
+            market: "IN", // Specify the market (region)
+          },
+        }
+      );
+
+      setSuggestedSongs((prev) => [...prev, ...response.data.tracks]);
+      console.log("Recommended Songs:", response.data.tracks);
+    } catch (error) {
+      console.error("Error fetching songs:", error);
+    }
+
+  };
+
   // Handle artist selection
   const handleArtistSelection = (artist) => {
-    console.log(artist);
     setSelectedArtist(artist.id);
-    console.log("artist selected:", artist.id);
-    console.log("artist name:", artist.name);
+    setSuggestedSongs([]);
     setShowArtists(false);
     setQuery(artist.name);
+    console.log(artist);
+    console.log("artist selected:", artist.id);
+    console.log("artist name:", artist.name);
   };
 
   // Debounce the fetchArtists function
@@ -130,7 +161,7 @@ const SingerPage = () => {
         />
         {/* {loading && <p>Loading...</p>} */}
 
-        {showArtists && query.length > 0 && selectedArtist === "" && (
+        {showArtists && selectedArtist === "" && (
           <ul
             ref={dropdownRef}
             className="absolute top-20 bg-white w-3/12 rounded-lg shadow-lg p-4 z-10"
@@ -169,9 +200,36 @@ const SingerPage = () => {
       )}
 
       {/* Button */}
-      <button className="p-4 bg-[#1DB954] text-white rounded-lg w-3/12">
-        Submit
-      </button>
+      <div className="p-3 w-full flex justify-end">
+        <button
+          onClick={fetchSongs}
+          className="px-5 py-2.5 rounded-2xl bg-buttonBgGreen text-buttonTextColor "
+        >
+          Next
+        </button>
+      </div>
+
+      {/* Suggested songs */}
+      <div>
+        {suggestedSongs.length > 0 && (
+          <div className="p-4">
+            <h1 className="font-bold text-4xl mb-6">Recommendations</h1>
+            <div className="grid grid-cols-5 gap-5">
+              {suggestedSongs.map((track, index) => (
+                <div key={index} className="flex flex-col gap-2">
+                  <img
+                    src={track.album.images[0].url}
+                    alt={track.album.name}
+                    className="w-40 h-40 rounded-lg"
+                  />
+                  <p className="font-bold text-lg">{track.name}</p>
+                  <p className="font-normal text-sm">{track.artists[0].name}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
