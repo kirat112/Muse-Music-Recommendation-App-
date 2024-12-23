@@ -12,7 +12,7 @@ const Footer = () => {
       {/* middle */}
       <div className="w-full flex justify-center pr-8 gap-x-4 my-6">
         <a href="#"><Facebook/></a>
-        <a href="#"><Twitter/></a>
+        <a href="https://x.com/HarkiratSi26886"><Twitter/></a>
         <a href="#"><Insta/></a>
       </div>
       {/* lower */}
