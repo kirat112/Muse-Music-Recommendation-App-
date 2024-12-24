@@ -11,7 +11,7 @@ const Navbar = () => {
   const links = [
     { name: "For You", path: "/" },
     { name: "Playlists", path: "/playlistNavbar" },
-    { name: "Artists", path: "/artists" },
+    { name: "Artists", path: "/artistsNavbar" },
     { name: "Albums", path: "/albums" },
     { name: "Podcasts", path: "/podcasts" },
     { name: "Genres", path: "/genres" },

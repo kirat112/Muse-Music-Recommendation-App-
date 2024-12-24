@@ -9,27 +9,13 @@ import {
   ProtectedRoute,
   PlaylistPage,
   PlaylistNavbar,
+  ArtistsNavbar,
 } from "./index.js";
 import { Routes, Route } from "react-router";
 import "./App.css";
-// import { useEffect } from "react";
 // import { LOCALURI, DEPLOYEDURI } from "./Constants.js";
 
 function App() {
-  // useEffect(() => {
-  //   fetch(`${LOCALURI}/songs`, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: localStorage.getItem("token"),
-  //     },
-  //     body: JSON.stringify({
-  //       Singer: "Arijit Singh",
-  //     }),
-  //   })
-  //     .then((res) => res.json())
-  // }, []);
-
   return (
     <div className="font-sans bg-white flex flex-col min-h-screen">
       <Navbar />
@@ -83,6 +69,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <PlaylistNavbar />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="artistsNavbar"
+            element={
+              <ProtectedRoute>
+                <ArtistsNavbar />
               </ProtectedRoute>
             }
           />

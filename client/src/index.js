@@ -20,7 +20,8 @@ import SingerPage from "./Components/Singer/SingerPage";
 import PlaylistPage from "./Components/Playlist/PlaylistPage";
 import Login from "./Pages/Login";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
-import PlaylistNavbar from "./Components/Playlist/PlaylistNavbar";
+import PlaylistNavbar from "./Components/Navbar/PlaylistNavbar";
+import ArtistsNavbar from "./Components/Navbar/ArtistsNavbar";
 
 export {
   Button,
@@ -46,4 +47,5 @@ export {
   Login,
   ProtectedRoute,
   PlaylistNavbar,
+  ArtistsNavbar,
 };

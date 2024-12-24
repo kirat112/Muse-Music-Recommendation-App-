@@ -161,6 +161,7 @@ const SingerPage = () => {
         />
         {/* {loading && <p>Loading...</p>} */}
 
+        {/* Dropsown */}
         {showArtists && selectedArtist === "" && (
           <ul
             ref={dropdownRef}
