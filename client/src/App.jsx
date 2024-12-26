@@ -10,6 +10,9 @@ import {
   PlaylistPage,
   PlaylistNavbar,
   ArtistsNavbar,
+  SongsNavbar,
+  AlbumsNavbar,
+  PodcastsNavbar,
 } from "./index.js";
 import { Routes, Route } from "react-router";
 import "./App.css";
@@ -77,6 +80,30 @@ function App() {
             element={
               <ProtectedRoute>
                 <ArtistsNavbar />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="songsNavbar"
+            element={
+              <ProtectedRoute>
+                <SongsNavbar />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="albumsNavbar"
+            element={
+              <ProtectedRoute>
+                <AlbumsNavbar />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="podcastsNavbar"
+            element={
+              <ProtectedRoute>
+                <PodcastsNavbar />
               </ProtectedRoute>
             }
           />

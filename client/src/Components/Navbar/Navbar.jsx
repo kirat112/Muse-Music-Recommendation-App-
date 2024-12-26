@@ -9,11 +9,11 @@ const Navbar = () => {
 
   const navigate = useNavigate();
   const links = [
-    { name: "For You", path: "/" },
+    { name: "Songs", path: "/songsNavbar" },
     { name: "Playlists", path: "/playlistNavbar" },
     { name: "Artists", path: "/artistsNavbar" },
-    { name: "Albums", path: "/albums" },
-    { name: "Podcasts", path: "/podcasts" },
+    { name: "Albums", path: "/albumsNavbar" },
+    { name: "Podcasts", path: "/podcastsNavbar" },
     { name: "Genres", path: "/genres" },
   ];
 

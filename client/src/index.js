@@ -22,6 +22,9 @@ import Login from "./Pages/Login";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
 import PlaylistNavbar from "./Components/Navbar/PlaylistNavbar";
 import ArtistsNavbar from "./Components/Navbar/ArtistsNavbar";
+import SongsNavbar from "./Components/Navbar/SongsNavbar";
+import AlbumsNavbar from "./Components/Navbar/AlbumsNavbar";
+import PodcastsNavbar from "./Components/Navbar/PodcastsNavbar";
 
 export {
   Button,
@@ -48,4 +51,7 @@ export {
   ProtectedRoute,
   PlaylistNavbar,
   ArtistsNavbar,
+  SongsNavbar,
+  AlbumsNavbar,
+  PodcastsNavbar,
 };
