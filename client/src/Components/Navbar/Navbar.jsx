@@ -31,7 +31,7 @@ const Navbar = () => {
         .catch((error) => {
           console.error("Error fetching user profile:", error);
           localStorage.removeItem("spotify_access_token");
-          window.location.href = "/login";
+          navigate("/login");
         });
     }
   }, []);
