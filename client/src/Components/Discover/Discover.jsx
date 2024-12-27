@@ -2,7 +2,7 @@ const Discover = () => {
   return (
     <div className="w-full p-4 relative">
       <img
-        src=".\src\Components\Images\main.png"
+        src="/Images/main.png"
         className="w-full object-cover rounded-xl"
         alt="Description"
       />

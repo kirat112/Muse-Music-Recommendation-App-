@@ -2,7 +2,7 @@ const Playlist = () => {
   return (
     <div className="w-[225px] pb-3">
       <img
-        src=".\src\Components\Images\playlist.jpg"
+        src="/Images/playlist.jpg"
         className="w-[223px] h-[125px] rounded-xl object-cover mb-3"
         alt="Genre"
       />
