@@ -105,10 +105,9 @@ const GenrePage = () => {
             <input
               className="cursor-pointer"
               type="radio"
-              name={option}
+              name="genre"
               id={option}
               value={option}
-              checked={genre === option}
             />
             <label className="cursor-pointer" htmlFor={option}>
               {option}

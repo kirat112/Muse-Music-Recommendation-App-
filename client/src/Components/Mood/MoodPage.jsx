@@ -1,7 +1,10 @@
 import axios from "axios";
 import { useState } from "react";
+import { useHref, useNavigate } from "react-router-dom";
 
 const MoodPage = () => {
+  const navigate = useNavigate();
+
   const options = [
     {
       value: "Happy",
@@ -148,13 +151,6 @@ const MoodPage = () => {
 
   const genre = moodGenreMap[selectedMood];
 
-  const handleSelectedMood = (event) => {
-    setSelectedMood(event.target.value);
-    if (suggestedSongs.length > 0) {
-      setSuggestedSongs([]);
-    }
-  };
-
   const fetchSongs = async () => {
     const token = localStorage.getItem("spotify_access_token");
     try {
@@ -181,7 +177,7 @@ const MoodPage = () => {
       <div className="flex-grow">
         {/* Heading */}
         <h1 className="p-4 font-bold text-4xl">How are you feeling today?</h1>
-        
+
         {/* Options */}
         <ul className="p-4 flex justify-between ">
           {options.map((option, index) => (
@@ -190,14 +186,10 @@ const MoodPage = () => {
                 selectedMood === option.value ? "bg-[#F0F5F2]" : ""
               }`}
               key={index}
-              onClick={handleSelectedMood}
+              onClick={() => setSelectedMood(option.value)}
             >
               <span>{option.img}</span>
-              <input
-                className="cursor-pointer"
-                type="button"
-                value={option.value}
-              />
+              <span className="cursor-pointer">{option.value}</span>
             </li>
           ))}
         </ul>
@@ -219,7 +211,14 @@ const MoodPage = () => {
               <h1 className="font-bold text-4xl mb-6">Recommendations</h1>
               <div className="grid grid-cols-5 gap-5">
                 {suggestedSongs.map((track, index) => (
-                  <div key={index} className="flex flex-col gap-2">
+                  <div
+                    onClick={() => {
+                      console.log("track:", track);
+                      window.open(track.external_urls.spotify, "_blank");
+                    }}
+                    key={index}
+                    className="flex flex-col gap-2 cursor-pointer"
+                  >
                     <img
                       src={track.album.images[0].url}
                       alt={track.album.name}

@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router-dom";
+
 const Discover = () => {
+  const navigate = useNavigate();
   return (
     <div className="w-full p-4 relative">
       <img
@@ -10,7 +13,10 @@ const Discover = () => {
         <h1 className="font-bold text-5xl tracking-tight mb-6 text-white">
           Discover new music with Muse
         </h1>
-        <button className="bg-buttonBgGreen text-buttonTextColor rounded-3xl font-bold text-base px-5 py-2">
+        <button 
+          onClick={() => navigate("/cardcontainer")}
+          className="bg-buttonBgGreen text-buttonTextColor rounded-3xl font-bold text-base px-5 py-2"
+        >
           Get Recommendations
         </button>
       </div>

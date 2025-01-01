@@ -13,6 +13,7 @@ import {
   SongsNavbar,
   AlbumsNavbar,
   PodcastsNavbar,
+  CardContainer,
 } from "./index.js";
 import { Routes, Route } from "react-router";
 import "./App.css";
@@ -104,6 +105,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <PodcastsNavbar />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="cardcontainer"
+            element={
+              <ProtectedRoute>
+                <CardContainer />
               </ProtectedRoute>
             }
           />
